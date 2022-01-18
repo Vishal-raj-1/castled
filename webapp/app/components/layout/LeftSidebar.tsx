@@ -28,11 +28,11 @@ const sidebarLinks = [
     title: "Apps",
     href: "/apps",
   },
-  {
-    icon: IconSettings,
-    title: "Settings",
-    href: "/settings",
-  },
+  // {
+  //   icon: IconSettings,
+  //   title: "Settings",
+  //   href: "/settings",
+  // },
 ];
 const LeftSidebar = (props: LeftSidebarProps) => {
   const router = useRouter();

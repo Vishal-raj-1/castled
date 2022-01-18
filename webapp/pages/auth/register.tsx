@@ -57,57 +57,74 @@ function Register(props: serverSideProps) {
 
   return (
     <GuestLayout>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          password: "",
-          confirmPassword: "",
-          clusterLocation: AppCluster.US,
-        }}
-        validationSchema={formSchema}
-        onSubmit={(values) => handleRegisterUser(values, setUser, router!)}
-      >
-        {({ values, setFieldValue, setFieldTouched }) => (
-          <Form>
-            <InputField
-              type="string"
-              name="firstName"
-              title="First Name"
-              placeholder="Enter first name"
-            />
-            <InputField
-              type="string"
-              name="lastName"
-              title="Last Name"
-              placeholder="Enter last name"
-            />
-            <InputField
-              type="password"
-              name="password"
-              title="Password"
-              placeholder="Enter password"
-            />
+      <div className="container">
+        <div className="row">
+          <div className="col col-12 col-md-7">
+            <img src='/images/Castled-Logo.png' alt="Castled Logo" className="my-3" />
+            <h2>Create your Castled Account</h2>
+            <Formik
+              initialValues={{
+                firstName: "",
+                lastName: "",
+                password: "",
+                confirmPassword: "",
+                clusterLocation: AppCluster.US,
+              }}
+              validationSchema={formSchema}
+              onSubmit={(values) => handleRegisterUser(values, setUser, router!)}
+            >
+              {({ values, setFieldValue, setFieldTouched }) => (
+                <Form>
+                  <div className="row row-cols-2">
+                  <InputField
+                    type="string"
+                    name="firstName"
+                    title="First Name"
+                    placeholder="Enter First name"
+                  />
+                  <InputField
+                    type="string"
+                    name="lastName"
+                    title="Last Name"
+                    placeholder="Enter last name"
+                  />
+                  </div>
 
-            <InputField
-              type="password"
-              name="confirmPassword"
-              title="Confirm Password"
-              placeholder="Confirm password"
-            />
+                  <InputField
+                    type="password"
+                    name="password"
+                    title="Password"
+                    placeholder="Enter password"
+                  />
 
-            <InputSelect
-              title="Cluster Location"
-              options={renderUtils.selectOptions(AppClusterLabel)}
-              values={values}
-              setFieldValue={setFieldValue}
-              setFieldTouched={setFieldTouched}
-              name="clusterLocation"
-            />
-            <ButtonSubmit className="form-control" />
-          </Form>
-        )}
-      </Formik>
+                  <InputField
+                    type="password"
+                    name="confirmPassword"
+                    title="Confirm Password"
+                    placeholder="Confirm password"
+                  />
+
+                  <InputSelect
+                    title="Cluster Location"
+                    options={renderUtils.selectOptions(AppClusterLabel)}
+                    values={values}
+                    setFieldValue={setFieldValue}
+                    setFieldTouched={setFieldTouched}
+                    name="clusterLocation"
+                  />
+                  <ButtonSubmit className="form-control" >
+                    Create Account
+                  </ButtonSubmit>
+                </Form>
+              )}
+            </Formik>
+          </div>
+          <div className="col d-none col-md-5 d-md-flex align-items-center">
+            <img src='/images/register.gif' alt="Castled Logo" className="my-3 img-fluid" />
+          </div>
+        </div>
+      </div>
+
       {/* <div className="mt-3 text-center">
         <Button
           href={authUtils.getExternalLoginUrl(

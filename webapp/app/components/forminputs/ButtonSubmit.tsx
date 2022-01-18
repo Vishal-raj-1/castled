@@ -16,6 +16,7 @@ const ButtonSubmit = ({
 }: ButtonSubmitProps) => {
   return (
     <button
+      style={{ backgroundColor: "#393171", color: "white" }}
       type="submit"
       {...props}
       disabled={submitting}

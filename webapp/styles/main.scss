@@ -92,15 +92,6 @@ body {
   text-transform: uppercase;
 }
 
-.btn-link-danger {
-  color: $red;
-}
-
-.mySelect__control {
-  min-height: 30px;
-  height: 30px;
-}
-
 .title-fs {
   font-size: $title-fs;
   font-weight: $font-weight-bold;
@@ -326,7 +317,4 @@ form {
   .error {
     font-size: $font-size-sm;
   }
-}
-.bnt-red {
-  color: red !important;
 }

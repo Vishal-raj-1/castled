@@ -9,14 +9,13 @@ import { NextRouter, useRouter } from "next/router";
 import GuestLayout from "@/app/components/layout/GuestLayout";
 import ButtonSubmit from "@/app/components/forminputs/ButtonSubmit";
 import bannerNotification from "@/app/services/bannerNotificationService";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import Button  from "react-bootstrap/button";
 import { ExternalLoginType } from "@/app/common/enums/ExternalLoginType";
 import authUtils from "@/app/common/utils/authUtils";
 import buttonHandler from "@/app/common/utils/buttonHandler";
 import bannerNotificationService from "@/app/services/bannerNotificationService";
 import { GetServerSidePropsContext } from "next";
 import cn from "classnames";
-// import '../../styles/auth/login.css';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
@@ -57,7 +56,7 @@ const Login = (props: serverSideProps) => {
       <div className="text-center">
         <img src='/images/Castled-Logo.png' alt="Castled Logo" className="my-3"/>
         <h2>Sign in</h2>
-        <p style={{color: "#777777"}}>to continue to Castled</p>
+        <p className="text-muted">to continue to Castled</p>
       </div>
       <Formik
         initialValues={{
@@ -80,16 +79,12 @@ const Login = (props: serverSideProps) => {
             name="email"
             title="Email"
             placeholder="Enter email"
-            // className="form-control mb-3"
-            // style={{border: 'none'}}
           />
           <InputField
             type="password"
             name="password"
             title="Password"
             placeholder="Enter password"
-            // className="form-control mb-3"
-            // style={{border: 'none'}}
           />
           <ButtonSubmit className="form-control btn-lg" />
         </Form>
@@ -101,7 +96,7 @@ const Login = (props: serverSideProps) => {
       </div>
       <div className="my-3 gap-2 text-center">
         <Button
-          className="d-block btn-lg"
+          className="d-block btn-lg login-with-google"
           href={authUtils.getExternalLoginUrl(
             props.appBaseUrl,
             ExternalLoginType.GOOGLE,
@@ -109,13 +104,12 @@ const Login = (props: serverSideProps) => {
           )}
           onClick={buttonHandler(false, { id: "login_with_google" })}
           variant="outline-secondary"
-          style={{border: "1px solid black"}}
         >
           <img src="/images/google.png" width={18} className="rounded-circle" />
-          <span className="mx-2" style={{ color: "#393171", fontSize: "12px" }}>Login with Google</span>
+          <small className="mx-2">Login with Google</small>
         </Button>
       </div>
-      <a href="/auth/register" style={{color: "#393171", fontSize: "14px"}}>Create Account</a>
+      <h4><a href="/auth/register">Create Account</a></h4>
     </GuestLayout>
   );
 };

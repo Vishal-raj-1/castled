@@ -92,6 +92,19 @@ body {
   text-transform: uppercase;
 }
 
+.btn-link-danger {
+  color: $red;
+}
+
+.mySelect__control {
+  min-height: 30px;
+  height: 30px;
+}
+
+.bnt-red {
+  color: red !important;
+}
+
 .title-fs {
   font-size: $title-fs;
   font-weight: $font-weight-bold;
@@ -317,4 +330,17 @@ form {
   .error {
     font-size: $font-size-sm;
   }
+}
+
+
+.submit-button{
+  background-color: #393171;
+  color: white;
+}
+
+.login-with-google{
+  color: #393171;
+  border: 1px solid black;
+  background: white;
+  font-size: 14px;
 }

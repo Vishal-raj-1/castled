@@ -292,7 +292,6 @@ form {
   border: 1px solid $gray-100;
   thead tr,
   thead th {
-    // border-top: 1px solid $gray-200;
     border-bottom: 2px solid $primary-lite-2x !important;
     text-transform: uppercase;
     font-size: $font-size-sm;
@@ -330,17 +329,4 @@ form {
   .error {
     font-size: $font-size-sm;
   }
-}
-
-
-.submit-button{
-  background-color: #393171;
-  color: white;
-}
-
-.login-with-google{
-  color: #393171;
-  border: 1px solid black;
-  background: white;
-  font-size: 14px;
 }

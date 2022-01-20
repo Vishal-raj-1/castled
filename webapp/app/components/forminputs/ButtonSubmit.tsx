@@ -19,7 +19,7 @@ const ButtonSubmit = ({
       type="submit"
       {...props}
       disabled={submitting}
-      className={cn("mt-2 btn btn-primary submit-button", props.className)}
+      className={cn("mt-2 btn btn-primary", props.className)}
     >
       {children === "Run Query" ? (
         <IconPlayerPlay size={14} style={{ marginRight: "5px" }} />

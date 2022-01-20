@@ -39,9 +39,9 @@ const InputField = ({
     }
   }, [optionsRef]);
   return (
-    <div className={className ? className : cn({ "mb-3": !isHidden })}>
+    <div className={className ? className : cn({ "mb-3 card p-2": !isHidden })}>
       {title && !isHidden && (
-        <label htmlFor={props.id || props.name} className="form-label">
+        <label htmlFor={props.id || props.name} className="form-label mb-0">
           {title}
           {required && <span className="required-icon">*</span>}
         </label>
@@ -88,7 +88,7 @@ function getInput(
         }}
         onBlur={field.onBlur}
         {...props}
-        className={cn(props.className, "form-control", {
+        className={cn(props.className, "form-control border-0 p-0", {
           "required-field": meta.touched && meta.error,
         })}
         value={field.value}

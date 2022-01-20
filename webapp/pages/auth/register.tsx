@@ -11,7 +11,6 @@ import { NextRouter, useRouter } from "next/router";
 import GuestLayout from "@/app/components/layout/GuestLayout";
 import ButtonSubmit from "@/app/components/forminputs/ButtonSubmit";
 import * as Yup from "yup";
-import { Button } from "react-bootstrap";
 import { ExternalLoginType } from "@/app/common/enums/ExternalLoginType";
 import authUtils from "@/app/common/utils/authUtils";
 import buttonHandler from "@/app/common/utils/buttonHandler";
@@ -75,19 +74,23 @@ function Register(props: serverSideProps) {
             >
               {({ values, setFieldValue, setFieldTouched }) => (
                 <Form>
-                  <div className="row row-cols-2">
-                  <InputField
-                    type="string"
-                    name="firstName"
-                    title="First Name"
-                    placeholder="Enter First name"
-                  />
-                  <InputField
-                    type="string"
-                    name="lastName"
-                    title="Last Name"
-                    placeholder="Enter last name"
-                  />
+                  <div className="row">
+                    <div className="col">
+                      <InputField
+                        type="string"
+                        name="firstName"
+                        title="First Name"
+                        placeholder="Enter First name"
+                      />
+                    </div>
+                    <div className="col">
+                      <InputField
+                        type="string"
+                        name="lastName"
+                        title="Last Name"
+                        placeholder="Enter last name"
+                      />
+                    </div>
                   </div>
 
                   <InputField
@@ -112,7 +115,7 @@ function Register(props: serverSideProps) {
                     setFieldTouched={setFieldTouched}
                     name="clusterLocation"
                   />
-                  <ButtonSubmit className="form-control" >
+                  <ButtonSubmit className="form-control btn-lg" >
                     Create Account
                   </ButtonSubmit>
                 </Form>
@@ -124,19 +127,6 @@ function Register(props: serverSideProps) {
           </div>
         </div>
       </div>
-
-      {/* <div className="mt-3 text-center">
-        <Button
-          href={authUtils.getExternalLoginUrl(
-            props.appBaseUrl,
-            ExternalLoginType.GOOGLE,
-            router.pathname
-          )}
-          onClick={buttonHandler(false, { id: "signup_with_google" })}
-        >
-          Sign up with Google
-        </Button>
-      </div> */}
     </GuestLayout>
   );
 }

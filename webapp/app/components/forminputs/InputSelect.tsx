@@ -84,9 +84,9 @@ const InputSelect = ({
           />
           <span className="ml-2">{props.loadingText}</span>
         </div>}
-      <div className={cn("mb-3", { "d-none": props.hidden })}>
+      <div className={cn("mb-3 card p-2", { "d-none": props.hidden })}>
         {title && (
-          <label htmlFor={props.id || props.name} className="form-label">
+          <label htmlFor={props.id || props.name} className="form-label mb-0 small">
             {title}
             {required && "*"}
           </label>

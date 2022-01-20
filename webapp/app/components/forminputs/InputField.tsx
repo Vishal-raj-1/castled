@@ -41,7 +41,7 @@ const InputField = ({
   return (
     <div className={className ? className : cn({ "mb-3 card p-2": !isHidden })}>
       {title && !isHidden && (
-        <label htmlFor={props.id || props.name} className="form-label mb-0">
+        <label htmlFor={props.id || props.name} className="form-label mb-0 small">
           {title}
           {required && <span className="required-icon">*</span>}
         </label>

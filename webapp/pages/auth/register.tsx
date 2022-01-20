@@ -118,6 +118,7 @@ function Register(props: serverSideProps) {
                   <ButtonSubmit className="form-control btn-lg" >
                     Create Account
                   </ButtonSubmit>
+                  <h4 className="mt-3"><a href="/auth/login">Have an account? Sign In</a></h4>
                 </Form>
               )}
             </Formik>

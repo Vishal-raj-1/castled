@@ -101,10 +101,6 @@ body {
   height: 30px;
 }
 
-.bnt-red {
-  color: red !important;
-}
-
 .title-fs {
   font-size: $title-fs;
   font-weight: $font-weight-bold;
@@ -329,4 +325,5 @@ form {
   .error {
     font-size: $font-size-sm;
   }
+
 }

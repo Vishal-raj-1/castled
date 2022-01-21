@@ -95,6 +95,18 @@ const PipelineInfo = ({ pipelineId }: PipelineInfoProps) => {
         },
       }}
     >
+      <button className="btn btn-outline-primary float-end"
+        onClick={() => {
+          pipelineRunsService
+            .getByPipelineId(pipelineId)
+            .then(({ data }) => {
+              setPipelineRuns(data);
+              setIsLoading(false);
+            })
+            .catch(() => {
+              setPipelineRuns(null);
+            });
+        }}>Refresh</button>
       {!pipeline && <Loading />}
       {pipeline && (
         <div className="mb-4">
@@ -119,7 +131,7 @@ const PipelineInfo = ({ pipelineId }: PipelineInfoProps) => {
             pipelineId={pipeline?.id}
             name={pipeline?.name}
             schedule={pipeline?.jobSchedule}
-            queryMode = {pipeline?.queryMode}
+            queryMode={pipeline?.queryMode}
           ></PipelineSettingsView>
         </Tab>
       </Tabs>
@@ -199,10 +211,12 @@ function renderTitle(
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
-              pipelineService.delete(pipeline.id).then(() => {
-                bannerNotificationService.success("Pipeline Deleted");
-                router.push("/pipelines").then();
-              });
+              if (confirm(`Do you want to delete ${pipeline.name} Pipeline ?`)) {
+                pipelineService.delete(pipeline.id).then(() => {
+                  bannerNotificationService.success("Pipeline Deleted");
+                  router.push("/pipelines").then();
+                });
+              }
             }}
           >
             Delete

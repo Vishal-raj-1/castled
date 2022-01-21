@@ -53,9 +53,9 @@ const PipelineCreate = ({ wizardStepKey, appBaseUrl }: PipelineCreateProps) => {
             stepKey: "settings"
           }
         }}
-        onFinish={() => {
+        onFinish={(pipelineId) => {
           if (process.browser) {
-            router.push("/pipelines").then(() => {
+            router.push(`/pipelines/${pipelineId}`).then(() => {
               setPipelineWizContext({});
             });
           }

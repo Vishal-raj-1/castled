@@ -31,6 +31,7 @@ import DropdownPlain from "@/app/components/bootstrap/DropdownPlain";
 import { NextRouter, useRouter } from "next/router";
 import PipelineSettingsView from "@/app/components/pipeline/PipelineSettingsView";
 import { ScheduleType } from "@/app/common/enums/ScheduleType";
+import { PipelineRunStatus } from "@/app/common/enums/PipelineRunStatus";
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const pipelineId = routerUtils.getInt(query.pipelineId);
@@ -45,10 +46,12 @@ interface PipelineInfoProps {
 
 const PipelineInfo = ({ pipelineId }: PipelineInfoProps) => {
   const router = useRouter();
-  const MAX_RELOAD_COUNT = 20;
+  const MAX_RELOAD_COUNT = 100;
   const [reloadKey, setReloadKey] = useState<number>(0);
   const [reloadCount, setReloadCount] = useState<number>(0);
-  const [recordsSynced, setRecordsSynced] = useState<number>(0);
+  const [recordSyncStatus, setRecordSyncStatus] = useState<PipelineRunStatus>(
+    PipelineRunStatus.PROCESSING
+  );
   const [pipeline, setPipeline] = useState<
     PipelineResponseDto | undefined | null
   >();
@@ -69,21 +72,29 @@ const PipelineInfo = ({ pipelineId }: PipelineInfoProps) => {
       .getByPipelineId(pipelineId)
       .then(({ data }) => {
         setPipelineRuns(data);
-        setRecordsSynced(data[data.length - 1].pipelineSyncStats.recordsSynced);
+        if (data.length > 0) {
+          setRecordSyncStatus(data[0].status);
+        }
         if (
-          data.length &&
-          data[data.length - 1].pipelineSyncStats.recordsSynced === 0 &&
+          data.length > 0 &&
+          data[0].status === PipelineRunStatus.PROCESSING &&
           reloadCount < MAX_RELOAD_COUNT
         ) {
-          console.log("Will retry again");
           setTimeout(() => {
             setReloadCount(reloadCount + 1);
             setReloadKey(reloadKey + 1);
           }, 2000);
+        } else if (data.length === 0) {
+          // We might to be too early after a pipeline creation, retry!
+          setTimeout(() => {
+            setReloadCount(reloadCount + 1);
+            setReloadKey(reloadKey + 1);
+          }, 1000);
         }
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(JSON.stringify(error.message));
         setPipelineRuns(null);
       });
   }, [reloadKey]);
@@ -115,15 +126,23 @@ const PipelineInfo = ({ pipelineId }: PipelineInfoProps) => {
           <span>{pipeline.app.name}</span>
         </div>
       )}
-      {pipelineRuns && !recordsSynced && (
+      {pipelineRuns && recordSyncStatus === PipelineRunStatus.PROCESSING && (
         <div className="card p-2 mb-2 bg-light">
           <h2>Waiting for data to sync..</h2>
           <p>This may take some time</p>
         </div>
       )}
-      {pipelineRuns && !!recordsSynced && (
+      {pipelineRuns && recordSyncStatus === PipelineRunStatus.PROCESSED && (
         <div className="card p-2 mb-2 bg-light">
           <h2>Data sync successful!</h2>
+          <p>
+            Go to <strong>{pipeline?.app.name}</strong> to check the data synced
+          </p>
+        </div>
+      )}
+      {pipelineRuns && recordSyncStatus === PipelineRunStatus.FAILED && (
+        <div className="card p-2 mb-2 bg-light">
+          <h2>Data sync failed!</h2>
           <p>
             Go to <strong>{pipeline?.app.name}</strong> to check the data synced
           </p>

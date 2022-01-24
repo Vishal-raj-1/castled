@@ -62,7 +62,16 @@ const PipelineRunView = ({ pipelineRuns }: PipelineRunViewProps) => {
                 >
                   <tr key={i}>
                     <td>{run.id}</td>
-                    <td>{PipelineRunStatusLabel[run.status]}</td>
+                    <td>
+                      <span className={"rounded-pill border small l px-2 py-1 " + 
+                          (PipelineRunStatusLabel[run.status] === "Failed" 
+                          ? "border-danger text-danger"
+                          : PipelineRunStatusLabel[run.status] === "Completed" 
+                          ? "border-success text-success"
+                          : "border-warning text-warning") }>
+                        {PipelineRunStatusLabel[run.status]}
+                      </span>
+                    </td>
                     <td>{run.pipelineSyncStats.recordsSynced}</td>
                     <td>{run.pipelineSyncStats.recordsFailed}</td>
                     <td>{run.pipelineSyncStats.recordsSkipped}</td>
@@ -75,15 +84,15 @@ const PipelineRunView = ({ pipelineRuns }: PipelineRunViewProps) => {
                     <td>
                       <Button
                         size="sm"
-                        variant="outline-primary"
+                        variant="outline-danger"
                         className={classNames({
-                          "d-none":
+                          "px-1 d-none":
                             run.status !== PipelineRunStatus.PROCESSED ||
                             run.pipelineSyncStats.recordsFailed == 0,
                         })}
                         onClick={() => downloadErrorReport(run.id)}
                       >
-                        <IconFileDownload /> Error Report
+                        <IconFileDownload size={18} /> Error Report
                       </Button>
                     </td>
                   </tr>

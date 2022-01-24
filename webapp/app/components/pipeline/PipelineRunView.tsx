@@ -32,12 +32,12 @@ const PipelineRunView = ({ pipelineRuns }: PipelineRunViewProps) => {
             <thead>
               <tr>
                 <th>Run ID</th>
-                <th>Status</th>
                 <th>Synced</th>
                 <th>Failed</th>
                 <th>Skipped</th>
                 <th>Started</th>
                 <th>Time Taken</th>
+                <th>Status</th>
                 <th></th>
               </tr>
             </thead>
@@ -62,16 +62,6 @@ const PipelineRunView = ({ pipelineRuns }: PipelineRunViewProps) => {
                 >
                   <tr key={i}>
                     <td>{run.id}</td>
-                    <td>
-                      <span className={"rounded-pill border small l px-2 py-1 " + 
-                          (PipelineRunStatusLabel[run.status] === "Failed" 
-                          ? "border-danger text-danger"
-                          : PipelineRunStatusLabel[run.status] === "Completed" 
-                          ? "border-success text-success"
-                          : "border-warning text-warning") }>
-                        {PipelineRunStatusLabel[run.status]}
-                      </span>
-                    </td>
                     <td>{run.pipelineSyncStats.recordsSynced}</td>
                     <td>{run.pipelineSyncStats.recordsFailed}</td>
                     <td>{run.pipelineSyncStats.recordsSkipped}</td>
@@ -80,6 +70,21 @@ const PipelineRunView = ({ pipelineRuns }: PipelineRunViewProps) => {
                       {run.processedTs && renderUtils.getTimeTakenStr(
                         (run.processedTs - run.createdTs)
                       )}
+                    </td>
+                    <td>
+                      <span className={"btn small l px-2 py-1 " +
+                        (PipelineRunStatusLabel[run.status] === "Failed"
+                          ? "btn-outline-danger"
+                          : PipelineRunStatusLabel[run.status] === "Completed"
+                            ? "btn-outline-success"
+                            : "btn-outline-warning")}>
+                        {PipelineRunStatusLabel[run.status]}
+                        {
+                        // PipelineRunStatusLabel[run.status] === "Processing"
+                        // && 
+                        <span className='dot-flashing'></span>
+                        }
+                      </span>
                     </td>
                     <td>
                       <Button

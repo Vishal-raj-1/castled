@@ -5,7 +5,7 @@ export enum PipelineRunStatus {
 }
 
 export const PipelineRunStatusLabel: any = {
-  [PipelineRunStatus.PROCESSING]: "Processing...",
+  [PipelineRunStatus.PROCESSING]: "Processing",
   [PipelineRunStatus.PROCESSED]: "Completed",
   [PipelineRunStatus.FAILED]: "Failed",
 };

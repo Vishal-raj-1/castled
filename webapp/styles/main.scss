@@ -307,8 +307,8 @@ form {
   }
 
   .processing{
-    background-color: #fff8e6;
-    color: #fed352;
+    background-color: $yellow-light;
+    color: $yellow;
   }
 
   .completed{
@@ -327,7 +327,7 @@ form {
     width: 4px;
     height: 4px;
     border-radius: 4px;
-    background-color: #fed352;
+    background-color: $yellow;
     animation: dotFlashing 1s infinite alternate;
   }
   
@@ -357,11 +357,11 @@ form {
   
   @keyframes dotFlashing {
     0% {
-      background-color: #bb9522;
+      background-color: $yellow-dark;
     }
     50%,
     100% {
-      background-color: #fed352;
+      background-color: $yellow;
     }
   }
 }

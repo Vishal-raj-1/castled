@@ -72,17 +72,16 @@ const PipelineRunView = ({ pipelineRuns }: PipelineRunViewProps) => {
                       )}
                     </td>
                     <td>
-                      <span className={"btn small l px-2 py-1 " +
+                      <span className={"text-capitalize px-2 py-1 " +
                         (PipelineRunStatusLabel[run.status] === "Failed"
-                          ? "btn-outline-danger"
+                          ? "failed"
                           : PipelineRunStatusLabel[run.status] === "Completed"
-                            ? "btn-outline-success"
-                            : "btn-outline-warning")}>
+                            ? "completed"
+                            : "processing pe-4")}>
                         {PipelineRunStatusLabel[run.status]}
                         {
-                        // PipelineRunStatusLabel[run.status] === "Processing"
-                        // && 
-                        <span className='dot-flashing'></span>
+                        (PipelineRunStatusLabel[run.status] === "Processing"
+                        && <div className='float-end dot-flashing'></div>)
                         }
                       </span>
                     </td>

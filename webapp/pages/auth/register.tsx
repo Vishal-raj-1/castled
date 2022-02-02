@@ -64,25 +64,27 @@ function Register(props: serverSideProps) {
           lastName: "",
           password: "",
           confirmPassword: "",
-          clusterLocation: AppCluster.US,
+          clusterLocation: AppCluster.SELECT,
         }}
         validationSchema={formSchema}
         onSubmit={(values) => handleRegisterUser(values, setUser, router!)}
       >
         {({ values, setFieldValue, setFieldTouched }) => (
           <Form>
-            <InputField
-              type="string"
-              name="firstName"
-              title="First Name"
-              placeholder="Enter first name"
-            />
-            <InputField
-              type="string"
-              name="lastName"
-              title="Last Name"
-              placeholder="Enter last name"
-            />
+            <div className="row row-cols-2">
+              <InputField
+                type="string"
+                name="firstName"
+                title="First Name"
+                placeholder="Enter first name"
+              />
+              <InputField
+                type="string"
+                name="lastName"
+                title="Last Name"
+                placeholder="Enter last name"
+              />
+            </div>
             <InputField
               type="password"
               name="password"
@@ -98,13 +100,14 @@ function Register(props: serverSideProps) {
             />
 
             <InputSelect
-              title="Cluster Location"
+              title="Cluster Region"
               options={renderUtils.selectOptions(AppClusterLabel)}
               values={values}
               setFieldValue={setFieldValue}
               setFieldTouched={setFieldTouched}
               name="clusterLocation"
             />
+            <p className="text-muted mt-n3">Choose a region nearest to your warehouse region</p>
             <ButtonSubmit className="form-control" />
           </Form>
         )}
@@ -146,6 +149,9 @@ const handleRegisterUser = async (
       password: registerForm.password,
       clusterLocation: registerForm.clusterLocation,
     };
+    if(formData.clusterLocation === AppCluster.SELECT){
+      return bannerNotificationService.error("Please Select Cluster Location");
+    }
     registerUser(
       formData,
       ClusterLocationUrl[formData.clusterLocation] + "/backend/v1/users/register"

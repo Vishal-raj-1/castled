@@ -1,11 +1,11 @@
 export enum AppCluster {
-  SELECT = "",
+  SELECT = "SELECT",
   INDIA = "INDIA",
   US = "US",
 }
 
 export const AppClusterLabel: any = {
-  [AppCluster.SELECT]: "Select an Option",
+  [AppCluster.SELECT]: "Select cluster region",
   [AppCluster.INDIA]: "India",
   [AppCluster.US]: "US",
 };
